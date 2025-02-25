@@ -19,8 +19,8 @@ def register(request, username, email, password_hash):
             email=email
         )
         # block till token is created / saved.
+        
         if created:
-            Signal.send(sender=new_user)
             return JsonResponse({
                 'Message': 'User successfully created!' 
             })
