@@ -1,6 +1,6 @@
 from django.http import HttpResponse, Http404, JsonResponse
 from .models import User, Token
-from django.dispatch import Signal
+from .utils.jwt import generate_token
 
 # Create your views here.
 
@@ -18,18 +18,25 @@ def register(request, username, email, password_hash):
             password_hash=password_hash, 
             email=email
         )
-        #corresponding token row
-        token_created: Token = Token.objects.get(user_id=new_user)
+        #Should block after creating / getting user
+        token_h256: str = generate_token(new_user)
+        print("Token created %s" % token_h256)
+        if created:
+            token_entry: Token = Token.objects.create(user_id=new_user, token=token_h256)
+        else:
+            token_entry: Token = Token.objects.get(user_id=new_user, token=token_h256)
+        print("token created at %s" % token_entry.created_at)
         
         if created:
             return JsonResponse({
                 'Message': 'User successfully created!',
-                'BearerToken': token_created.token,
+                'BearerToken': token_entry.token,
             }, status=200)
         else:
             return JsonResponse({
-                'Message': 'Error in saving user'
-            }, status=500)
+                'Message': 'User already exists!',
+                'BearerToken': token_entry.token,
+            }, status=200)
         
     except Token.DoesNotExist:
         raise Http404("Hello, this is user signup exception")

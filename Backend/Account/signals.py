@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from .models import User, Token
 from .utils.jwt import generate_token
 
-@receiver(post_save, sender=User)
+#@receiver(post_save, sender=User)
 def user_post_create(sender, instance, created, **kwargs):
     if created:
         try:
