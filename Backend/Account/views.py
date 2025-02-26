@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404, JsonResponse
-from .models import User
+from .models import User, Token
 from django.dispatch import Signal
 
 # Create your views here.
@@ -18,18 +18,20 @@ def register(request, username, email, password_hash):
             password_hash=password_hash, 
             email=email
         )
-        # block till token is created / saved.
+        #corresponding token row
+        token_created: Token = Token.objects.get(user_id=new_user)
         
         if created:
             return JsonResponse({
-                'Message': 'User successfully created!' 
-            })
+                'Message': 'User successfully created!',
+                'BearerToken': token_created.token,
+            }, status=200)
         else:
             return JsonResponse({
                 'Message': 'Error in saving user'
-            })
+            }, status=500)
         
-    except User.DoesNotExist:
+    except Token.DoesNotExist:
         raise Http404("Hello, this is user signup exception")
     
 def echo(request, echo_str):

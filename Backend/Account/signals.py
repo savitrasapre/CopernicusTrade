@@ -8,10 +8,9 @@ def user_post_create(sender, instance, created, **kwargs):
     if created:
         try:
             #generate JWT and save in Token database
-            create_token_entry = generate_token(instance)
-            print("Token created %s" % create_token_entry)
-            Token.objects.get_or_create(user_id=sender, token='token') 
-
-            print("sender id is %s %s" % sender.id, create_token_entry.token)
+            token_h256 = generate_token(instance)
+            print("Token created %s" % token_h256)
+            token_entry, token_created = Token.objects.get_or_create(user_id=instance, token=token_h256)
+            print("sender id is %s" % token_entry.created_at)
         except Exception as e:
             print("Error in creating token %s" % e)
