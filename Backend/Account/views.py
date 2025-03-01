@@ -22,9 +22,9 @@ def register(request, username, email, password_hash):
         token_h256: str = generate_token(new_user)
         print("Token created %s" % token_h256)
         if created:
-            token_entry: Token = Token.objects.create(user_id=new_user, token=token_h256)
+            token_entry: Token = Token.objects.create(user=new_user, token=token_h256)
         else:
-            token_entry: Token = Token.objects.get(user_id=new_user, token=token_h256)
+            token_entry: Token = Token.objects.get(user=new_user, token=token_h256)
         print("token created at %s" % token_entry.created_at)
         
         if created:
