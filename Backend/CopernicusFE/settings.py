@@ -21,20 +21,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY = 'django-insecure-q-6ec=)uyxs7!cng$rlnp0*d%f@^7p146hrhc91uu02&_34n2u'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+#SECRET_KEY = 'django-insecure-q-6ec=)uyxs7!cng$rlnp0*d%f@^7p146hrhc91uu02&_34n2u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-#DEBUG = bool(os.environ.get("DEBUG", default=0))
+#DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG", default=1))
 
-ALLOWED_HOSTS = []
-#ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
+#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
 
 
 # Application definition
-
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     'Account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,12 +81,14 @@ WSGI_APPLICATION = 'CopernicusFE.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": 'django.db.backends.postgresql',
-        "NAME": 'copernicus', #For SQLlite3 BASE_DIR / 'db.sqlite3',
-        "USER": "cop_user",
-        "PASSWORD":"cop_pass",
-        "HOST": "127.0.0.1",
-        "PORT": "5433"
+        "ENGINE": 'django.db.backends.{}'.format(
+            os.getenv('DATABASE_ENGINE','postgresql')
+        ),
+        "NAME":  os.getenv('DATABASE_NAME','copernicus'), #For SQLlite3 BASE_DIR / 'db.sqlite3',
+        "USER":  os.getenv('DATABASE_USERNAME','cop_user'),
+        "PASSWORD":os.getenv('DATABASE_PASSWORD','cop_pass'),
+        "HOST": os.getenv('DATABASE_HOST', '127.0.0.1'),
+        "PORT": os.getenv('DATABASE_PORT', 5433)
     }
 }
 
@@ -126,6 +129,7 @@ JWT_EXPIRATION_DELTA = 1
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT =  os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
