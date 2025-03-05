@@ -7,8 +7,27 @@ from .utils.jwt import generate_token
 def index(request):
     return HttpResponse("Hello, world. You're at the Account index.")
 
-def login(request, username, password_hash):
-    return HttpResponse("Hello, this will be on user login")
+def login(request, username: str, password_hash: str):
+    try:
+        user: User = User.objects.get(username=username, password_hash=password_hash)
+        
+        if user.id:
+            new_token: Token = Token.objects.create(user=user, token=generate_token(user))
+            if new_token.id:
+                return JsonResponse({
+                    'Message': 'User successfully logged in!',
+                    'BearerToken': new_token.token,
+                }, status=200)
+            else:
+                raise Http404({
+                    'Message': 'Error in creating token!'
+                })
+    
+    except User.DoesNotExist:
+        print("Please enter a valid username and password")
+        raise Http404({
+            'Message': 'Please enter a valid username and password'
+        })
 
 def register(request, username, email, password_hash):
     try:
