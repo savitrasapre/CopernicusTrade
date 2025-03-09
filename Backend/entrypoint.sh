@@ -1,3 +1,6 @@
+#!/bin/sh
+#Make sure the end of line sequence is LF for this file.
+
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createcachetable
