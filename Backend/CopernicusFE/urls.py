@@ -21,4 +21,5 @@ urlpatterns = [
     path('account/', include('Account.urls')),
     #Admin by default comes with Django
     path('admin/', admin.site.urls),
+    path('broker/', include('Broker.urls'))
 ]

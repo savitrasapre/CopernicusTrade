@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Chart } from 'chart.js';
 import { CandlestickController, CandlestickElement, OhlcController, OhlcElement } from 'chartjs-chart-financial';
 
@@ -6,26 +6,49 @@ import { CandlestickController, CandlestickElement, OhlcController, OhlcElement 
 Chart.register(CandlestickController, CandlestickElement, OhlcController, OhlcElement);
 
 const candlestickData = [
-  { x: new Date('2025-03-01'), o: 100, h: 110, l: 90, c: 105 },
-  { x: new Date('2025-03-02'), o: 102, h: 112, l: 91, c: 112 },
-  { x: new Date('2025-03-03'), o: 103, h: 112, l: 92, c: 113 },
-  { x: new Date('2025-03-04'), o: 104, h: 113, l: 93, c: 114 },
-  { x: new Date('2025-03-05'), o: 110, h: 150, l: 85, c: 100 },
+  // { x: new Date('2025-03-01'), o: 100, h: 110, l: 90, c: 105 },
+  // { x: new Date('2025-03-02'), o: 102, h: 112, l: 91, c: 112 },
+  // { x: new Date('2025-03-03'), o: 103, h: 112, l: 92, c: 113 },
+  // { x: new Date('2025-03-04'), o: 104, h: 113, l: 93, c: 114 },
+  // { x: new Date('2025-03-05'), o: 110, h: 150, l: 85, c: 100 },
   // More data points...
 ];
 
 
 const StockChart = () => {
   const chartRef = useRef(null);
-
+  const [chartData, setChartData] = useState(null);
+  console.log(chartData);
+  
   useEffect(() => {
     const ctx = chartRef.current.getContext('2d');
+    const fetchHistory = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/broker/chart/AAPL');
+        const result = await response.json()
+
+        let xformedData = result?.history?.map(historyData => {
+          return {
+            ...historyData,
+            x: new Date(historyData?.x)
+          }
+        });
+
+        //console.log("Data", xformedData);
+
+        setChartData(xformedData);
+      } catch (error) {
+        console.error("Error fetching history data", error);
+      }
+    }
+    fetchHistory();
+    
     new Chart(ctx, {
       type: 'candlestick',
       data: {
         datasets: [{
           label: 'Candlestick',
-          data: candlestickData
+          data: chartData
         }]
       },
       options: {
