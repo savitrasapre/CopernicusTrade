@@ -11,7 +11,7 @@ def update(request, symbol_name, update_type):
     try:
         symbol_data = yf.Ticker(symbol_name)
         #Only 8 days of 1m data is allowed at once.
-        data_history = symbol_data.history(period="1d", interval="1m")
+        data_history = symbol_data.history(period="1mo", interval="1d")
         json_data = [
             {
                 'x': index.strftime('%Y-%m-%d'),
