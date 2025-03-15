@@ -55,8 +55,9 @@ services:
   
   celery_worker:
     build: .
-    command: celery -A CopernicusFE worker --loglevel=info
+    command: sh /app/entrypoint.sh
     container_name: celery_worker
+    CELERY_WORKER: true
     depends_on:
       - redis
 
