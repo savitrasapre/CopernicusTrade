@@ -36,6 +36,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
 INSTALLED_APPS = [
     "corsheaders",
     "whitenoise.runserver_nostatic",
+    'Broker.apps.BrokerConfig',
     'Account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
