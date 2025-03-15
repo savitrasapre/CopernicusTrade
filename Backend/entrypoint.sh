@@ -1,8 +1,11 @@
 #!/bin/sh
-#Make sure the end of line sequence is LF for this file.
-if ["CELERY_WORKER" = "true"]; then
+
+# Check if the container should run as a Celery worker or Django app
+if [ "$CELERY_WORKER" = "true" ]; then
+    echo "Starting Celery worker..."
     celery -A CopernicusFE worker --loglevel=info
 else
+    echo "Running Django tasks..."
     python manage.py makemigrations
     python manage.py migrate
     python manage.py createcachetable
@@ -10,23 +13,26 @@ else
     # Check if the superuser already exists before creating it
     echo "Checking for existing superuser..."
     python manage.py shell -c "
-    from django.contrib.auth import get_user_model;
-    User = get_user_model();
-    exists = User.objects.filter(is_superuser=True).exists();
-    exit(exists)
+from django.contrib.auth import get_user_model;
+User = get_user_model();
+exists = User.objects.filter(is_superuser=True).exists();
+exit(0 if exists else 1)
     "
 
-    if [ $? -eq 1 ]; then
+    if [ $? -eq 0 ]; then
         echo "Superuser already exists"
     else
-        echo "Superuser does not exist"
+        echo "Superuser does not exist. Creating superuser..."
         if [ "$DJANGO_SUPERUSER_USERNAME" ]; then
-            echo "Creating superuser..."
             python manage.py createsuperuser \
                 --noinput \
-                --username $DJANGO_SUPERUSER_USERNAME \
-                --email $DJANGO_SUPERUSER_EMAIL
+                --username "$DJANGO_SUPERUSER_USERNAME" \
+                --email "$DJANGO_SUPERUSER_EMAIL"
+        else
+            echo "Superuser environment variables are not set. Skipping superuser creation."
         fi
     fi
 
-$@
+    echo "Starting Django server..."
+    exec "$@"
+fi
