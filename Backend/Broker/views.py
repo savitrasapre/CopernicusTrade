@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, Http404
 import yfinance as yf
 import pandas as pd
-from task import hello_world
+from .task import hello_world
 
 # Create your views here.
 def index(request):
