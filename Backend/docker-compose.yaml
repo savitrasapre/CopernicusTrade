@@ -28,6 +28,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - redis
+      - celery_worker
     environment:
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
       DEBUG: ${DEBUG}
@@ -46,6 +48,18 @@ services:
       - .env
     volumes:
       - /app/static
+  
+  redis:
+    image: redis:latest
+    container_name: redis
+  
+  celery_worker:
+    build: .
+    command: celery -A CopernicusFE worker --loglevel=info
+    container_name: celery_worker
+    depends_on:
+      - redis
+
 volumes:
   postgres_data:
 # The commented out section below is an example of how to define a PostgreSQL
