@@ -6,21 +6,12 @@ from .task import hello_world
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello, world. You're at the Account index.")
-
-def task(request):
-    try:
-        print("In task")
-        result = hello_world.delay()
-        return JsonResponse({
-            'Message': 'Triggered Task',
-            'MessageID': result.id
-        })
-    except Exception as e:
-        print(e)
-        raise Http404({
-                    'Message': 'Error in triggering task!'
-                })
+    print("In task")
+    result = hello_world.delay()
+    return JsonResponse({
+        'Message': 'Triggered Task',
+        'MessageID': result.id
+    })
 
 def update(request, symbol_name, update_type):
     try:
