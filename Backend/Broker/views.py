@@ -8,8 +8,9 @@ from .task import hello_world
 def index(request):
     return HttpResponse("Hello, world. You're at the Account index.")
 
-def trigger_task(request):
+def task(request):
     try:
+        print("In task")
         result = hello_world.delay()
         return JsonResponse({
             'Message': 'Triggered Task',
