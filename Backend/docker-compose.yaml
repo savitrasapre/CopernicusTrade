@@ -57,7 +57,8 @@ services:
     build: .
     command: sh /app/entrypoint.sh
     container_name: celery_worker
-    CELERY_WORKER: true
+    environment:
+      CELERY_WORKER: true
     depends_on:
       - redis
 
