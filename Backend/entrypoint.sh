@@ -2,8 +2,13 @@
 
 # Check if the container should run as a Celery worker or Django app
 if [ "$CELERY_WORKER" = "true" ]; then
-    echo "Starting Celery worker..."
+    echo "Starting Celery worker and Beat scheduler..."
+
+    # Run Celery worker in the background
     celery -A CopernicusFE worker --loglevel=info
+
+    # Run Celery Beat in the foreground
+    celery -A CopernicusFE beat --loglevel=info &
 else
     echo "Running Django tasks..."
     python manage.py makemigrations
