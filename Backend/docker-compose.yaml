@@ -61,6 +61,15 @@ services:
       CELERY_WORKER: true
     depends_on:
       - redis
+  
+  celery_beat:
+    build:
+      context: .
+    container_name: celery_beat
+    command: celery -A your_project_name beat --loglevel=info
+    depends_on:
+      - django-web
+      - redis
 
 volumes:
   postgres_data:
