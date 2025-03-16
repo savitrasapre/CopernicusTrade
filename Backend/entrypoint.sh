@@ -4,7 +4,9 @@
 if [ "$CELERY_WORKER" = "true" ]; then
     echo "Starting Celery worker..."
     # Run Celery worker in the background
-    celery -A CopernicusFE worker --loglevel=info
+    celery -A CopernicusFE worker --loglevel=info &
+    
+    celery -A CopernicusFE beat --loglevel=info
 else
     echo "Running Django tasks..."
     python manage.py makemigrations
