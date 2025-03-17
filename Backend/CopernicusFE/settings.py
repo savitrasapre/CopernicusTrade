@@ -95,7 +95,7 @@ DATABASES = {
         "NAME":  os.getenv('DATABASE_NAME','copernicus'), #For SQLlite3 BASE_DIR / 'db.sqlite3',
         "USER":  os.getenv('DATABASE_USERNAME','cop_user'),
         "PASSWORD":os.getenv('DATABASE_PASSWORD','cop_pass'),
-        "HOST": os.getenv('DATABASE_HOST', '127.0.0.1'),
+        "HOST": os.getenv('DATABASE_HOST', 'localhost'),
         "PORT": os.getenv('DATABASE_PORT', 5432)
     }
 }
