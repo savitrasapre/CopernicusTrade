@@ -17,7 +17,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'run-every-three-hours': {
-        'task': 'Util.tasks.Util.get_chart_bars',
+        'task': 'Util.tasks.get_chart_bars',
         'schedule': crontab(minute="*/5"), #crontab(minute=0, hour='*/3')
         'args': ("1mo","1d")
     }
