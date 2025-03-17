@@ -17,8 +17,9 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     'run-every-three-hours': {
-        'task': 'Broker.task.periodic_print',
-        'schedule': crontab(minute='*'), #crontab(minute=0, hour='*/3')
+        'task': 'Util.symbol.Util.get_chart_bars',
+        'schedule': crontab(minute="*/15"), #crontab(minute=0, hour='*/3')
+        'args': ("1mo","1d")
     }
 }
 
