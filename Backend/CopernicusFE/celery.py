@@ -16,9 +16,9 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
-    'run-every-three-hours': {
-        'task': 'Util.task.get_chart_bars',
-        'schedule': crontab(minute="*/5"), #crontab(minute=0, hour='*/3')
+    'run-every-five-minutes': {
+        'task': 'Util.task.get_chart_bars',  # Task name (must match the registered task name)
+        'schedule': crontab(minute="*/5"),
     }
 }
 
