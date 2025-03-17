@@ -19,6 +19,10 @@ app.conf.beat_schedule = {
     'run-every-five-minutes': {
         'task': 'Broker.task.get_chart_bars',  # Task name (must match the registered task name)
         'schedule': crontab(minute="*/5"),
+    },
+    'run-every-one-minute': {
+        'task': 'Broker.task.symbol_data_count',  # Task name (must match the registered task name)
+        'schedule': crontab(minute="*/1"),
     }
 }
 

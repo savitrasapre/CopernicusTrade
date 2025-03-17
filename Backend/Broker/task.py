@@ -14,6 +14,9 @@ def hello_world():
 def periodic_print():
     print("PERIODIC TASK - ", datetime.now())
 
+@shared_task
+def symbol_data_count():
+    logger.debug("Count is --",SymbolData.objects.count())
 
 @shared_task
 def get_chart_bars():
