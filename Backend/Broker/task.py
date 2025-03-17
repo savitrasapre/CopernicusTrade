@@ -1,6 +1,6 @@
 from celery import shared_task
 from datetime import datetime
-from ..Broker.models import SymbolData
+from .models import SymbolData
 import logging
 
 logger = logging.getLogger(__name__)
