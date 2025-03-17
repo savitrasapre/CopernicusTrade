@@ -3,7 +3,7 @@ from celery import shared_task
 from ..Broker.models import SymbolData
 
 @shared_task
-def get_chart_bars(period: str, interval: str):
+def get_chart_bars():
     """
     For multiple symbols, use whitespaced strings like so "AAPL GOOGL META"
     TODO:
@@ -16,7 +16,7 @@ def get_chart_bars(period: str, interval: str):
         symbols: str = "AAPL"
         symbol_data: yf.Ticker = yf.Ticker(symbols)
         #Only 8 days of 1m data is allowed at once. period="1mo" interval="1d"
-        data_history = symbol_data.history(period=period, interval=interval)
+        data_history = symbol_data.history(period="1mo", interval="1d")
         json_data = [
             {
                 'x': index.strftime('%Y-%m-%d'),
