@@ -18,6 +18,7 @@ class Util:
         - Data from different brokers can be fetched from.
         """
         try:
+            print("-- Getting chart bars --")
             #Get default symbol list from db
             symbols: str = "AAPL"
             symbol_data: yf.Ticker = yf.Ticker(symbols)
