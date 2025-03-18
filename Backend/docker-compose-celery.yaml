@@ -1,0 +1,22 @@
+services:
+  celery_worker:
+    build: .
+    command: sh /app/entrypoint.sh
+    container_name: celery_worker
+    environment:
+      CELERY_WORKER: true
+    depends_on:
+      - redis
+    env_file:
+      - .env
+
+  celery_beat:
+    build: .
+    command: sh /app/entrypoint.sh
+    container_name: celery_beat
+    environment:
+      CELERY_BEAT: true
+    depends_on:
+      - redis
+    env_file:
+      - .env
