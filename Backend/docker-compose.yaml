@@ -64,6 +64,17 @@ services:
     env_file:
       - .env
 
+  celery_beat:
+    build: .
+    command: sh /app/entrypoint.sh
+    container_name: celery_beat
+    environment:
+      CELERY_BEAT: true
+    depends_on:
+      - redis
+    env_file:
+      - .env
+
 volumes:
   postgres_data:
 # The commented out section below is an example of how to define a PostgreSQL
