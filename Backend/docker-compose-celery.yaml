@@ -3,6 +3,7 @@ services:
     build: .
     command: sh /app/entrypoint.sh
     container_name: celery_worker
+    dockerfile: dockerfile-celery
     environment:
       CELERY_WORKER: true
     depends_on:
@@ -20,3 +21,7 @@ services:
       - redis
     env_file:
       - .env
+
+  redis:
+    image: redis:latest
+    container_name: redis
