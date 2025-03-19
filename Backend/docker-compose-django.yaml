@@ -21,8 +21,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
-      - redis
-      - celery_worker
+      #- redis
+      #- celery_worker
     environment:
       DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
       DEBUG: ${DEBUG}
