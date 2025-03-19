@@ -13,9 +13,10 @@ services:
       - .env
 
   django-web:
-    build: .
+    build:
+      context: .
+      dockerfile: dockerfile-django
     container_name: django-docker
-    dockerfile: dockerfile-django
     ports:
       - "8000:8000"
     depends_on:
