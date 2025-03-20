@@ -12,16 +12,16 @@ services:
     env_file:
       - .env
 
-  celery_beat:
-    build: .
-    command: sh /app/entrypoint.sh
-    container_name: celery_beat
-    environment:
-      CELERY_BEAT: true
-    depends_on:
-      - redis
-    env_file:
-      - .env
+  # celery_beat:
+  #   build: .
+  #   command: sh /app/entrypoint.sh
+  #   container_name: celery_beat
+  #   environment:
+  #     CELERY_BEAT: true
+  #   depends_on:
+  #     - redis
+  #   env_file:
+  #     - .env
 
   redis:
     image: redis:latest
