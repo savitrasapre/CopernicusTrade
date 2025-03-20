@@ -15,8 +15,8 @@ ENV PYTHONUNBUFFERED=1
 RUN pip install --upgrade pip
 
 # Copy Celery and Redis requirements
-COPY requirements-worker.txt /app/
-RUN pip install --no-cache-dir -r requirements-worker.txt
+COPY requirements-redis.txt /app/
+RUN pip install --no-cache-dir -r requirements-redis.txt
 
 # Production stage
 FROM python:3.13-slim
