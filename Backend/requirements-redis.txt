@@ -8,6 +8,7 @@ click-repl==0.3.0
 cron-descriptor==1.4.5
 cffi==1.17.1
 cryptography==44.0.1
+django-cors-headers==4.7.0
 django-celery-beat==2.7.0
 kombu==5.5.0
 multitasking==0.0.11
