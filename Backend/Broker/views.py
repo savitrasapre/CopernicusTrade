@@ -4,12 +4,18 @@ from .task import hello_world
 
 # Create your views here.
 def index(request):
-    print("In task")
-    result = hello_world.delay()
-    return JsonResponse({
-        'Message': 'Triggered Task',
-        'MessageID': result.id
-    })
+    try:
+        print("In task")
+        result = hello_world.delay()
+        return JsonResponse({
+            'Message': 'Triggered Task',
+            'MessageID': result.id
+        })
+    except Exception as e:
+        print(e)
+        raise Http404({
+            'Message': 'Error in triggering task!'
+        })
 
 def update(request, symbol_name, update_type):
     try:
