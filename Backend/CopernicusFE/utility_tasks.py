@@ -1,15 +1,20 @@
 from celery import shared_task
 import logging
 import requests
+import os
 
 logger = logging.getLogger(__name__)
 
 @shared_task
 def send_telegram_message(message: str):
+    """
+    TODO:
+    - Add to a generic class UtilityTasks inherited from Tasks
+    """
     try:
         logger.info("--Sending Telegram Message--")
-        bot_token = "7530716852:AAGmsm7o2QLLLdZ_ZbpTihnFj8l6nDT3HvE"
-        chat_id = "7958367256"
+        bot_token = os.getenv("GRAM_BOT_TOKEN")
+        chat_id = os.getenv("GRAM_CHAT_ID")
 
         # Telegram API URL
         url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
