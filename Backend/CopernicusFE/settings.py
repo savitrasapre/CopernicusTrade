@@ -22,10 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
-#SECRET_KEY = 'django-insecure-q-6ec=)uyxs7!cng$rlnp0*d%f@^7p146hrhc91uu02&_34n2u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
 DEBUG = bool(os.environ.get("DEBUG", default=1))
 
 #ALLOWED_HOSTS = []
@@ -145,4 +143,4 @@ STATIC_ROOT =  os.path.join(BASE_DIR, "static")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Celery broker URL
-CELERY_BROKER_URL = "redis://34.130.62.230:6379/0" 
+CELERY_BROKER_URL = os.getenv('REDIS_CONNECTION_URL')
