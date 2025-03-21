@@ -1,7 +1,7 @@
 from celery import shared_task
 from datetime import datetime
 from .models import SymbolData
-from ..CopernicusFE.utility_tasks import send_telegram_message
+from CopernicusFE.utility_tasks import send_telegram_message
 import logging
 
 logger = logging.getLogger(__name__)
