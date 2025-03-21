@@ -14,7 +14,7 @@ def hello_world():
 @shared_task
 def periodic_print():
     print("PERIODIC TASK - ", datetime.now())
-    send_telegram_message()
+    send_telegram_message("Hello World!")
 
 @shared_task
 def symbol_data_count():

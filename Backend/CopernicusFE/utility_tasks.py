@@ -10,7 +10,6 @@ def send_telegram_message(message: str):
         logger.info("--Sending Telegram Message--")
         bot_token = "7530716852:AAGmsm7o2QLLLdZ_ZbpTihnFj8l6nDT3HvE"
         chat_id = "7958367256"
-        message = "Hello, World!"
 
         # Telegram API URL
         url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
