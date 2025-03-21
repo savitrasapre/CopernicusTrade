@@ -32,6 +32,7 @@ def get_chart_bars():
         symbols = "AAPL"
         symbol_data = yf.Ticker(symbols)
         data_history = symbol_data.history(period="1mo", interval="1d")
+        print("Fetched from YF")
         json_data = [
             {'x': index.strftime('%Y-%m-%d'), 'o': row['Open'], 'h': row['High'], 'l': row['Low'], 'c': row['Close']}
             for index, row in data_history.iterrows()
