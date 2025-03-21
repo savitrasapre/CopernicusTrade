@@ -1,6 +1,7 @@
 from celery import shared_task
 from datetime import datetime
 from .models import SymbolData
+from ..CopernicusFE.utility_tasks import send_telegram_message
 import logging
 
 logger = logging.getLogger(__name__)
@@ -13,6 +14,7 @@ def hello_world():
 @shared_task
 def periodic_print():
     print("PERIODIC TASK - ", datetime.now())
+    send_telegram_message()
 
 @shared_task
 def symbol_data_count():
