@@ -43,4 +43,5 @@ USER appuser
 EXPOSE 6379
 
 # Run Celery worker
-CMD ["celery", "-A", "CopernicusFE", "worker", "--loglevel=info"]
+#CMD ["celery", "-A", "CopernicusFE", "worker", "--loglevel=info"]
+CMD ["/app/entrypoint.sh"]
