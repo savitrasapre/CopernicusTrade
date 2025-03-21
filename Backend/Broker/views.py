@@ -14,7 +14,8 @@ def index(request):
     except Exception as e:
         print(e)
         raise Http404({
-            'Message': 'Error in triggering task!'
+            'Message': 'Error in triggering task!',
+            'Error': e
         })
 
 def update(request, symbol_name, update_type):
