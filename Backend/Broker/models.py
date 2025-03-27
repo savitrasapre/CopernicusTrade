@@ -7,7 +7,7 @@ class SymbolData(models.Model):
     symbol_name = models.CharField(max_length=500)
     updated_at = models.DateTimeField(auto_now=True)
 
-class DefaultSymbols(models.Model):
+class DefaultSecurities(models.Model):
     #id = models.AutoField(primary_key=True)
     symbol_name = models.CharField(max_length=50, primary_key=True)
     created_at = models.DateTimeField(auto_now_add=True)

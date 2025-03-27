@@ -21,12 +21,12 @@ def get_chart_bars():
     - Formatting for telegram message should be allowed in send_telegram_message function
     """
     try:
-        from .models import DefaultSymbols
+        from .models import DefaultSecurities
         from multiprocessing import Process
 
         print("-- Getting chart bars --")
         processes = []
-        symbols = DefaultSymbols.objects.values_list('symbol_name', flat=True)
+        symbols = DefaultSecurities.objects.values_list('symbol_name', flat=True)
 
         for symbol in symbols:
             process = Process(target=Utility.fetch_historical_symbol_data, args=(symbol))
