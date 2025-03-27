@@ -22,18 +22,19 @@ def get_chart_bars():
     """
     try:
         from .models import DefaultSecurity
-        from multiprocessing import Process
+        from threading import Thread
 
         print("-- Getting chart bars --")
-        processes = []
+        threads = []
         symbols = DefaultSecurity.objects.values_list('symbol_name', flat=True)
+        logger.info(f"Symbols: {symbols}")
 
         for symbol in symbols:
-            process = Process(target=Utility.fetch_historical_symbol_data, args=(symbol))
-            processes.append(process)
-            process.start()
+            thread = Thread(target=Utility.fetch_historical_symbol_data, args=(symbol))
+            threads.append(thread)
+            thread.start()
         
-        for process in processes:
-            process.join()
+        for thead in threads:
+            thread.join()
     except Exception as e:
         logger.error(f"Error fetching chart bars: {e}")
