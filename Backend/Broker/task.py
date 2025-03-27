@@ -30,7 +30,7 @@ def get_chart_bars():
         logger.info(f"Symbols: {symbols}")
 
         for symbol in symbols:
-            thread = Thread(target=Utility.fetch_historical_symbol_data, args=(symbol))
+            thread = Thread(target=Utility.fetch_historical_symbol_data, args=(symbol,))    #Needs to be a tuple
             threads.append(thread)
             thread.start()
         

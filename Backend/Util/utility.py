@@ -9,7 +9,7 @@ class Utility():
         pass
 
     @staticmethod
-    def fetch_historical_symbol_data(self, symbol: str):
+    def fetch_historical_symbol_data(symbol: str):
         """
         Fetches data for a given symbol from yfinance and saves it in the database.
         """
