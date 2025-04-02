@@ -25,10 +25,10 @@ class MovingAverage(IStrategy):
                 logging.error(f"Symbol data is not found")
             
             current_sum = 0
-            for item in symbol_df:
+            for idx, item in enumerate(symbol_df, start=1):
                 closing_price = item["c"]
                 current_sum += closing_price
-                item["avg"] = current_sum / (len(symbol_df) + 1)
+                item["avg"] = current_sum / idx
             
             #return new dict with avg price
             return symbol_df
