@@ -1,6 +1,15 @@
 from enum import Enum
 
-class StrategyType(Enum):
-    RSI = 1
-    MA = 2
+class EStrategyType(Enum):
+    RSI = "rsi"
+    MA = "ma"
     #MACD = 2
+
+
+class EMarketDirection(Enum):
+    LONG = "long"
+    SHORT = "short"
+    NONE = "none"
+
+class EUpdateType(Enum):
+    CHART = "chart"
