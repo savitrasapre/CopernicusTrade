@@ -1,5 +1,5 @@
 from .strategy import IStrategy
-from Util.types import EStrategyType
+from Util.types import EStrategyType, EMarketDirection
 import logging
 
 logging = logging.getLogger(__name__)
@@ -10,9 +10,13 @@ class MovingAverage(IStrategy):
     This class implements the IStrategy interface and provides methods to run a moving average strategy.
     """
     def __init__(self, symbol_name: str):
-        self.current_strategy = EStrategyType['MA'].value
-        self.current_symbol = symbol_name
-        self.market_direction = EStrategyType['NONE'].value
+        try:
+            self.current_strategy = EStrategyType.MA.value
+            self.current_symbol = symbol_name
+            self.market_direction = EMarketDirection.NONE.value
+        except Exception as e:
+            logging.error(f"Error initializing MovingAverage strategy: {e}")
+            raise e
     
     def calculate_average(self) -> dict:
         try:
