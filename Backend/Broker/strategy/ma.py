@@ -37,7 +37,7 @@ class MovingAverage(IStrategy):
         try:
             #Load the list of cumulative average price
             chart_data_with_avg_price = self.calculate_average()
-
+            logging.info(f"Chart data with average price for {self.current_symbol} retrieved successfully!")
             #returning the dictionary with average price for now.
             return chart_data_with_avg_price
         except Exception as e:
