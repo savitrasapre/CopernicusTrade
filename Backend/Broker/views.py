@@ -22,7 +22,7 @@ def index(request):
             'Error': e
         })
 
-def update(request, symbol_name: str, strategy_type: str, update_type: EUpdateType):
+def update(request, symbol_name: str, strategy_type: str, update_type: str):
     try:
         """
         TODO:
