@@ -18,7 +18,7 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'run-everyday-at-nine': {
         'task': 'Broker.task.get_chart_bars',  # Task name (must match the registered task name)
-        'schedule': crontab(minute="*/2")#crontab(hour="9",minute="0"),
+        'schedule': crontab(hour="9",minute="0"),
     },
 }
 
