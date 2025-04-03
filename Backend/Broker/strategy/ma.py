@@ -18,17 +18,17 @@ class MovingAverage(IStrategy):
             logging.error(f"Error initializing MovingAverage strategy: {e}")
             raise e
     
-    def calculate_average(self) -> dict:
+    def calculate_average(self):
         try:
-            symbol_df: dict = self.load_symbol_data()
+            symbol_df = self.load_symbol_data()
             if symbol_df is None:
                 logging.error(f"Symbol data is not found")
             
             current_sum = 0
             for idx, item in enumerate(symbol_df, start=1):
-                closing_price = item["c"]
+                closing_price = item[2] # Assuming the closing price is at index 2
                 current_sum += closing_price
-                item["avg"] = current_sum / idx
+                item.append(current_sum / idx)
             
             #return new dict with avg price
             return symbol_df

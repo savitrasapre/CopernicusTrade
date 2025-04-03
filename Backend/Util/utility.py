@@ -19,7 +19,7 @@ class Utility():
             symbol_data = yf.Ticker(symbol)
             data_history = symbol_data.history(period="1mo", interval="1d")
             json_data = [
-                {'x': index.strftime('%Y-%m-%d'), 'o': row['Open'], 'h': row['High'], 'l': row['Low'], 'c': row['Close']}
+                [index.strftime('%Y-%m-%d'),  row['Low'],  row['Open'],  row['Close'], row['High']]
                 for index, row in data_history.iterrows()
             ]
             if json_data:

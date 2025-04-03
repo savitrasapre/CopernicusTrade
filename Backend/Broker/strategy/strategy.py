@@ -23,7 +23,7 @@ class IStrategy(ABC):
         self.market_direction = EMarketDirection['NONE'].value
         super().__init__()
 
-    def load_symbol_data(self) -> dict:
+    def load_symbol_data(self):
         """"
         - TODO:
         - Add broker_name as another filter to the query.
