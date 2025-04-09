@@ -9,8 +9,8 @@ services:
       CELERY_WORKER: true
     depends_on:
       - redis
-    env_file:
-      - .env
+    #env_file:
+    #- .env
 
   # celery_beat:
   #   build: .
