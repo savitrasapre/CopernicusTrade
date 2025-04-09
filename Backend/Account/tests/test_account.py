@@ -6,7 +6,7 @@ class UserTestCase(TestCase):
         User.objects.create(username="testing1", password_hash="hashing1", email="testing1@gmail.com")
         User.objects.create(username="testing2 ", password_hash="hashing2_", email="testing2_2@gmail.com")
 
-    def test_basic_user_test(self):
+    def test_get_basic_user(self):
         """Basic user creation is identified"""
         testing1 = User.objects.get(username="testing1")
         testing2 = User.objects.get(username="testing2")

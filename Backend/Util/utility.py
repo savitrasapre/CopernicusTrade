@@ -17,7 +17,7 @@ class Utility():
             import yfinance as yf
             print(f"Fetching data for {symbol}")
             symbol_data = yf.Ticker(symbol)
-            data_history = symbol_data.history(period="1mo", interval="1d")
+            data_history = symbol_data.history(period="200d", interval="1d")
             json_data = [
                 [index.strftime('%Y-%m-%d'),  row['Low'],  row['Open'],  row['Close'], row['High']]
                 for index, row in data_history.iterrows()
