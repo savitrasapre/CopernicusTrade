@@ -1,3 +1,14 @@
+### Set up environment before building application
+
+First we need to copy over the contents of .env file
+into environment.sh
+
+Give it write permissions, like so:
+`sudo chmod +x environment.sh`
+
+Then run the bash script
+`source environment.sh`
+
 ### Building and running your application
 
 When you're ready, start your application by running:
@@ -19,4 +30,5 @@ Consult Docker's [getting started](https://docs.docker.com/go/get-started-sharin
 docs for more detail on building and pushing.
 
 ### References
-* [Docker's Python guide](https://docs.docker.com/language/python/)
+
+- [Docker's Python guide](https://docs.docker.com/language/python/)
