@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const accountApi = createApi({
   reducerPath: "accountApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://34.41.7.45:8000/account/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://34.41.7.45:8000/account/" }),
   endpoints: (builder) => ({
     loginUser: builder.query({
       query: ({ username, password }) => `login/${username}/${password}`,
