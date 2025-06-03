@@ -1,8 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+
+//Temporary BASE_URL string. Depends on where you host this
+export const BASE_URL = '';
+
 export const accountApi = createApi({
   reducerPath: "accountApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://34.41.7.45:8000/account/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL + "/account/" }),
   endpoints: (builder) => ({
     loginUser: builder.query({
       query: ({ username, password }) => `login/${username}/${password}`,

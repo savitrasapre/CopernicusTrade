@@ -45,10 +45,11 @@ const CandlestickChart = () => {
   console.log(data);
 
   useEffect(() => {
+    const BASE_URL = '';
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://34.41.7.45:8000/broker/chart/ma/AAPL"
+          BASE_URL + "/broker/chart/ma/AAPL"
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
