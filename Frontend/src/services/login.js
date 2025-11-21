@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
 //Temporary BASE_URL string. Depends on where you host this
-export const BASE_URL = '';
+export const BASE_URL = 'http://localhost:8000';
 
 export const accountApi = createApi({
   reducerPath: "accountApi",

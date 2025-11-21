@@ -1,6 +1,6 @@
 from django.http import JsonResponse, Http404
 import yfinance as yf
-from .task import hello_world
+from .task import hello_world, get_chart_bars
 from Util.types import EUpdateType, EStrategyType
 import logging
 
@@ -43,4 +43,22 @@ def update(request, symbol_name: str, strategy_type: str, update_type: str):
         logging.error(f"Error in retrieving data: {e}")
         raise Http404({
                     'Message': 'Error in retrieving data!'
+                })
+
+def refresh(request):
+    try:
+        """
+        TODO:
+        - Only super role users should be able to refresh data.
+        """
+        result = get_chart_bars.delay()
+        logging.info(f"Chart data for all symbols triggered successfully!")
+        return JsonResponse({
+            'Message': 'Chart data retrieval successfully triggered!',
+        }, status=200)
+
+    except Exception as e:
+        logging.error(f"Error in refresh data: {e}")
+        raise Http404({
+                    'Message': 'Error in refresh data!'
                 })

@@ -47,7 +47,7 @@ services:
     env_file:
       - .env
     volumes:
-      - /app/static
+      - .:/app
 
   redis:
     image: redis:latest

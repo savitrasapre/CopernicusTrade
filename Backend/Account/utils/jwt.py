@@ -9,6 +9,7 @@ def generate_token(user: User):
         "sub": str(user.id),
         'iat': datetime.now().timestamp(),
         'exp': datetime.timestamp(datetime.now() + timedelta(days=settings.JWT_EXPIRATION_DELTA)),
+        #TODO: add role in here included in audience
     }
     token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
     return token

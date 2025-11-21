@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from Util.types import EUserType
 
 class User(models.Model):
     id = models.AutoField(primary_key=True)
@@ -7,6 +8,7 @@ class User(models.Model):
     password_hash = models.CharField(max_length=500)
     email = models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
+    role = models.CharField(max_length=50, default=EUserType.STANDARD.value)
     def __str__(self):
         return self.username
 

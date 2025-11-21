@@ -1,6 +1,7 @@
 from celery import shared_task
 from .models import SymbolData
 import logging
+import time
 from Util.utility import Utility
 
 logger = logging.getLogger(__name__)
@@ -30,11 +31,8 @@ def get_chart_bars():
         logger.info(f"Symbols: {symbols}")
 
         for symbol in symbols:
-            thread = Thread(target=Utility.fetch_historical_symbol_data, args=(symbol,))    #Needs to be a tuple
-            threads.append(thread)
-            thread.start()
-        
-        for thead in threads:
-            thread.join()
+            Utility.fetch_historical_symbol_data(symbol)
+            time.sleep(5)
+
     except Exception as e:
         logger.error(f"Error fetching chart bars: {e}")

@@ -45,7 +45,7 @@ const CandlestickChart = () => {
   console.log(data);
 
   useEffect(() => {
-    const BASE_URL = '';
+    const BASE_URL = 'http://localhost:8000';
     const fetchData = async () => {
       try {
         const response = await fetch(

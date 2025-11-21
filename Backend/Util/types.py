@@ -5,7 +5,6 @@ class EStrategyType(Enum):
     MA = "ma"
     #MACD = 2
 
-
 class EMarketDirection(Enum):
     LONG = "long"
     SHORT = "short"
@@ -13,3 +12,7 @@ class EMarketDirection(Enum):
 
 class EUpdateType(Enum):
     CHART = "chart"
+
+class EUserType(Enum):
+    STANDARD = "standard"
+    SUPER = "super"
