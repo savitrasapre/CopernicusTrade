@@ -18,10 +18,22 @@ class Utility():
             print(f"Fetching data for {symbol}")
             symbol_data = yf.Ticker(symbol)
             data_history = symbol_data.history(period="200d", interval="1d")
+            # json_data = [
+            #     [int(index.timestamp()),  row['Low'],  row['Open'],  row['Close'], row['High']]
+            #     for index, row in data_history.iterrows()
+            # ]
             json_data = [
-                [index.strftime('%Y-%m-%d'),  row['Low'],  row['Open'],  row['Close'], row['High']]
+                {
+                    "time": int(index.timestamp()),   # key is a string "time"
+                    "open": float(row["Open"]),
+                    "high": float(row["High"]),
+                    "low": float(row["Low"]),
+                    "close": float(row["Close"])
+                }
                 for index, row in data_history.iterrows()
             ]
+
+
             if json_data:
                 logger.info("-- Inserting in the database --")
                 SymbolData.objects.update_or_create(

@@ -29,6 +29,7 @@ class IStrategy(ABC):
         - Add broker_name as another filter to the query.
         """
         try:
+            logging.info("In load symbol")
             dataframe: SymbolData = SymbolData.objects.get(symbol_name=self.current_symbol)
             logging.info(f"Loaded symbol data for {self.current_symbol} from the database.")
             return dataframe.market_data

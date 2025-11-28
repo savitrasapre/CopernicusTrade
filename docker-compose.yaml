@@ -22,8 +22,9 @@ services:
       - .env
 
   django-web:
-    build: .
-    container_name: django-docker
+    build:
+      context: ./Backend
+    #container_name: django-docker
     ports:
       - "8000:8000"
     depends_on:
@@ -47,16 +48,16 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app
+      - ./Backend/:/app
 
   redis:
     image: redis:latest
-    container_name: redis
+    #container_name: redis
 
   celery_worker:
-    build: .
+    build: ./Backend
     command: sh /app/entrypoint.sh
-    container_name: celery_worker
+    #container_name: celery_worker
     environment:
       CELERY_WORKER: true
     depends_on:
@@ -65,15 +66,30 @@ services:
       - .env
 
   celery_beat:
-    build: .
+    build: ./Backend
     command: sh /app/entrypoint.sh
-    container_name: celery_beat
+    #container_name: celery_beat
     environment:
       CELERY_BEAT: true
     depends_on:
       - redis
     env_file:
       - .env
+  
+  frontend:
+    build: 
+      context: ./Frontend
+      #target: prod
+      dockerfile: ./dockerfile
+    #command: sh -c "npm i && npm run dev"
+    #container_name: frontend_container
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Frontend:/app
+      - /app/node_modules
+    depends_on:
+      - django-web
 
 volumes:
   postgres_data:

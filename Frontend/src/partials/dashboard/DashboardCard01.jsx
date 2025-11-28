@@ -1,10 +1,41 @@
-import React from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import EditMenu from "../../components/DropdownEditMenu";
 // Import utilities
-import CandlestickChart from "../../charts/CandlestickChart";
+import {CandleChart} from "../../charts/CandleChart";
 
 function DashboardCard01() {
+  
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    const BASE_URL = 'http://localhost:8000';
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          BASE_URL + "/broker/chart/ma/AAPL"
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const result = await response.json();
+
+        setData(result?.chart_data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array means it runs once when component mounts.
+  
+  if (error) return <p>Error: {error}</p>;
+
+
   return (
     <div className="flex flex-col col-span-full sm:col-span-6 xl:col-span-12 bg-white dark:bg-gray-800 shadow-xs rounded-xl">
       <div className="px-5 pt-5">
@@ -57,7 +88,10 @@ function DashboardCard01() {
         {/* Change the height attribute to adjust the chart height */}
         {/* <LineChart data={chartData} width={389} height={128} /> */}
         {/* <StockChart /> */}
-        <CandlestickChart />
+        {/* <CandlestickChart /> */}
+        <Suspense fallback={<h2>Loading...</h2>}>
+          <CandleChart data={data} />
+        </Suspense>
       </div>
     </div>
   );

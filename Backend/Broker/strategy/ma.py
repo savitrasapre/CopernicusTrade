@@ -1,6 +1,7 @@
 from .strategy import IStrategy
 from Util.types import EStrategyType, EMarketDirection
 import logging
+from pandas import DataFrame
 
 logging = logging.getLogger(__name__)
 
@@ -24,11 +25,15 @@ class MovingAverage(IStrategy):
             if symbol_df is None:
                 logging.error(f"Symbol data is not found")
             
+            logging.info("In calc avg")
+
             current_sum = 0
             for idx, item in enumerate(symbol_df, start=1):
-                closing_price = item[2] # Assuming the closing price is at index 2
+                logging.info(f"item is {item["low"]} {item["high"]} {item["time"]}")
+                #low, high, open, time, close
+                closing_price = item["close"] # Assuming the closing price is at index 2
                 current_sum += closing_price
-                item.append(current_sum / idx)
+                item["ma"] = (current_sum / idx)
             
             #return new dict with avg price
             return symbol_df
